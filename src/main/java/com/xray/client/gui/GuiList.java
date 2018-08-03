@@ -190,7 +190,8 @@ public class GuiList extends GuiContainer
 			default:
 				for ( HelperGuiList list : this.renderList ) {
 					if( list.getButton().id == button.id ) {
-						XrayController.searchList.toggleOreDrawable(list.getOre()); // no need to update list.getOre() as it is referenced in searchList
+
+//						XrayController.searchList.toggleOreDrawable(list.getOre()); // no need to update list.getOre() as it is referenced in searchList
 					}
 				}
 		}
@@ -245,8 +246,8 @@ public class GuiList extends GuiContainer
 	public void onGuiClosed()
 	{
 		// First, save all changes made to the config
-		ConfigHandler.syncConfig();
-		XRay.config.save();
+//		ConfigHandler.syncConfig();
+//		XRay.config.save();
 
 		// And force a scan
 		XrayController.requestBlockFinder( true );

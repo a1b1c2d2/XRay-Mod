@@ -63,7 +63,7 @@ public class XrayController
 	public static void setCurrentDist( int dist )
 	{
 		currentDist = dist;
-		ConfigHandler.storeCurrentDist();
+//		ConfigHandler.storeCurrentDist();
 	}
 	public static void incrementCurrentDist()
 	{
@@ -71,7 +71,7 @@ public class XrayController
 			currentDist++;
 		else
 			currentDist = 0;
-		ConfigHandler.storeCurrentDist();
+//		ConfigHandler.storeCurrentDist();
 	}
 	public static void decrementCurrentDist()
 	{
@@ -79,7 +79,7 @@ public class XrayController
 			currentDist--;
 		else
 			currentDist = XRay.distNumbers.length - 1;
-		ConfigHandler.storeCurrentDist();
+//		ConfigHandler.storeCurrentDist();
 	}
 
 	/**

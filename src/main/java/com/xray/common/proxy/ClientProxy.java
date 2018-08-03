@@ -27,7 +27,7 @@ public class ClientProxy extends CommonProxy
 	public void preInit(FMLPreInitializationEvent event) {
 		super.preInit(event);
 
-		ConfigHandler.init( event.getSuggestedConfigurationFile() );
+//		ConfigHandler.init( event.getSuggestedConfigurationFile() );
 
 		// Setup Keybindings
 		XRay.keyBind_keys = new KeyBinding[ XRay.keyBind_descriptions.length ];
@@ -51,7 +51,7 @@ public class ClientProxy extends CommonProxy
 	public void postInit(FMLPostInitializationEvent event) {
 		super.postInit(event);
 
-		ConfigHandler.setup(); // Read the config file and setup environment.
+//		ConfigHandler.setup(); // Read the config file and setup environment.
 
 		for ( Block block : ForgeRegistries.BLOCKS ) {
 			NonNullList<ItemStack> subBlocks = NonNullList.create();

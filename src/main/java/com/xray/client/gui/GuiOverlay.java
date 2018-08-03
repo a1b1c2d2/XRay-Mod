@@ -67,23 +67,23 @@ public class GuiOverlay {
 
         }
 
-        RayTraceResult ray = mc.player.rayTrace(100, 20);
-        if( ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK ) {
-            IBlockState state = mc.world.getBlockState(ray.getBlockPos());
-
-            if (XrayController.blockStore.blockRef.containsKey(state.getBlock().getRegistryName())) {
-                // We have a matching key, lets find the block,
-                for (BlockData data :
-                        XrayController.blockStore.blockRef.get(state.getBlock().getRegistryName())) {
-                    if (data.getState() != state)
-                        continue;
-
-                    RenderHelper.enableGUIStandardItemLighting();
-                    this.mc.getRenderItem().renderItemAndEffectIntoGUI(state.getBlock().getPickBlock(state, ray, mc.world, ray.getBlockPos(), mc.player), 50, 50); // Blocks with no stack will display an empty image. TODO GLDraw image?
-                    RenderHelper.disableStandardItemLighting();
-                }
-            }
-        }
+//        RayTraceResult ray = mc.player.rayTrace(100, 20);
+//        if( ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK ) {
+//            IBlockState state = mc.world.getBlockState(ray.getBlockPos());
+//
+//            if (XrayController.blockStore.blockRef.containsKey(state.getBlock().getRegistryName())) {
+//                // We have a matching key, lets find the block,
+//                for (BlockData data :
+//                        XrayController.blockStore.blockRef.get(state.getBlock().getRegistryName())) {
+//                    if (data.getState() != state)
+//                        continue;
+//
+//                    RenderHelper.enableGUIStandardItemLighting();
+//                    this.mc.getRenderItem().renderItemAndEffectIntoGUI(state.getBlock().getPickBlock(state, ray, mc.world, ray.getBlockPos(), mc.player), 50, 50); // Blocks with no stack will display an empty image. TODO GLDraw image?
+//                    RenderHelper.disableStandardItemLighting();
+//                }
+//            }
+//        }
     }
 
 //    private <T extends Comparable<T>> IBlockState applyPropertyValue(IBlockState state, IProperty<T> property, String rawValue) {

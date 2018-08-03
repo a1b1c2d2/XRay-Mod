@@ -79,9 +79,6 @@ public class XRay
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
-		Block chest = Blocks.CHEST;
-
-		XrayController.blockStore.blocks.put(chest.getRegistryName(), new BlockData(chest.getDefaultState(), new int[] {0,0,0}, true));
 		proxy.postInit( event );
 	}
 
