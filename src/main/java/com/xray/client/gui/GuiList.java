@@ -4,6 +4,7 @@ import com.xray.client.xray.XrayController;
 import com.xray.client.gui.helper.HelperGuiList;
 import com.xray.common.XRay;
 import com.xray.common.config.ConfigHandler;
+import com.xray.common.reference.BlockData;
 import com.xray.common.reference.OreInfo;
 import com.xray.common.reference.Reference;
 import net.minecraft.block.Block;
@@ -152,6 +153,9 @@ public class GuiList extends GuiContainer
 					RayTraceResult ray = mc.player.rayTrace(100, 20);
 					if( ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK ) {
 						IBlockState state = mc.world.getBlockState(ray.getBlockPos());
+
+						XrayController.blockStore.blocks.put(state.getBlock().getRegistryName(), new BlockData(state.getBlock().getDefaultState(), new int[] {25, 25, 25}, true));
+
 						Block lookingAt = mc.world.getBlockState(ray.getBlockPos()).getBlock();
 
 						ItemStack lookingStack = lookingAt.getPickBlock(state, ray, mc.world, ray.getBlockPos(), mc.player);

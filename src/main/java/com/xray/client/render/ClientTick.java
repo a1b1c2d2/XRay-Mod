@@ -13,6 +13,7 @@ import com.xray.common.utils.WorldRegion;
 import java.util.Map;
 
 import net.minecraft.init.Blocks;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -44,7 +45,7 @@ public class ClientTick implements Runnable
 
 		final World world = mc.world;
 		final List<BlockInfo> temp = new ArrayList<>();
-		BlockId key; // Search key for the map
+		ResourceLocation key; // Search key for the map
 		int lowBoundX, highBoundX, lowBoundY, highBoundY, lowBoundZ, highBoundZ;
 
 		// Loop on chunks (x, z)
@@ -88,11 +89,13 @@ public class ClientTick implements Runnable
 								if( ebs.get(i, j, k).getBlock() == Blocks.AIR || ebs.get(i, j, k).getBlock() == Blocks.STONE)
 									continue;
 
-								key = BlockId.fromBlockState( ebs.get(i, j, k) );
-
-								if (ores.containsKey( key )) // The reason for using Set/Map
+								key = ebs.get(i, j, k).getBlock().getRegistryName();
+								if ( XrayController.blockStore.blocks.containsKey(key) ) // The reason for using Set/Map
 								{
-									temp.add( new BlockInfo(x + i, y + j, z + k, ores.get(key)) ); // Add this block to the temp list using world coordinates
+								    if( !XrayController.blockStore.blocks.get(key).isDefault() && XrayController.blockStore.blocks.get(key).getState() != ebs.get(i,j,k) )
+								        continue;
+
+                                    temp.add( new BlockInfo(x + i, y + j, z + k, new int[]{0, 0, 0}) ); // Add this block to the temp list using world coordinates
 								}
 							}
 						}

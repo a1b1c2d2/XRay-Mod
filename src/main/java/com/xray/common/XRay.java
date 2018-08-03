@@ -1,11 +1,15 @@
 package com.xray.common;
 
+import com.xray.client.xray.XrayController;
 import com.xray.common.proxy.CommonProxy;
+import com.xray.common.reference.BlockData;
 import com.xray.common.reference.BlockId;
 import com.xray.common.reference.OreInfo;
 import com.xray.common.reference.Reference;
+import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.init.Blocks;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -75,6 +79,9 @@ public class XRay
 	@EventHandler
 	public void postInit(FMLPostInitializationEvent event)
 	{
+		Block chest = Blocks.CHEST;
+
+		XrayController.blockStore.blocks.put(chest.getRegistryName(), new BlockData(chest.getDefaultState(), new int[] {0,0,0}, true));
 		proxy.postInit( event );
 	}
 
