@@ -4,8 +4,8 @@ import com.xray.client.xray.XrayController;
 import com.xray.common.XRay;
 import com.xray.common.reference.BlockData;
 import com.xray.common.reference.Reference;
+
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.Gui;
@@ -14,8 +14,6 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;

@@ -60,9 +60,16 @@ public class ClientProxy extends CommonProxy
 				continue; // avoids troubles
 
 			for( ItemStack subBlock : subBlocks ) {
-				String name = subBlock.isEmpty() ? block.getRegistryName().toString() : subBlock.getItem().getRegistryName().toString();
+				String name = "Mod Author not defined!";
+				if( subBlock.isEmpty() && block.getRegistryName() != null )
+					name = block.getRegistryName().toString();
+
+				if( !subBlock.isEmpty() && subBlock.getItem().getRegistryName() != null )
+					name = subBlock.getItem().getRegistryName().toString();
+
 				int meta	= subBlock.isEmpty() ? 0 : subBlock.getItemDamage();
 
+				// TODO: Refactor this
 				if ( Block.getBlockFromName(name) != null ) // some blocks like minecraft:banner return null and break everything
 					XRay.blockList.add( new OreInfo( name, meta ) );
 			}
