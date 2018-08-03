@@ -52,7 +52,7 @@ public class GuiOverlay {
 
 
         for (Map.Entry<ResourceLocation, List<BlockData>> items:
-                XrayController.blockStore.blockRef.entrySet()) {
+                XrayController.blockStore.getBlocks().entrySet()) {
 
             i2 = 0;
             for (BlockData data:

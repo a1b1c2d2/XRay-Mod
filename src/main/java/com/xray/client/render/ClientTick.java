@@ -90,13 +90,13 @@ public class ClientTick implements Runnable
 									continue;
 
 								key = ebs.get(i, j, k).getBlock().getRegistryName();
-								if ( XrayController.blockStore.blocks.containsKey(key) ) // The reason for using Set/Map
-								{
-								    if( !XrayController.blockStore.blocks.get(key).isDefault() && XrayController.blockStore.blocks.get(key).getState() != ebs.get(i,j,k) )
-								        continue;
-
-                                    temp.add( new BlockInfo(x + i, y + j, z + k, new int[]{0, 0, 0}) ); // Add this block to the temp list using world coordinates
-								}
+//								if ( XrayController.blockStore.blocks.containsKey(key) ) // The reason for using Set/Map
+//								{
+//								    if( !XrayController.blockStore.blocks.get(key).isDefault() && XrayController.blockStore.blocks.get(key).getState() != ebs.get(i,j,k) )
+//								        continue;
+//
+//                                    temp.add( new BlockInfo(x + i, y + j, z + k, new int[]{0, 0, 0}) ); // Add this block to the temp list using world coordinates
+//								}
 							}
 						}
 					}
