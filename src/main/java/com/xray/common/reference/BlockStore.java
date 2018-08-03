@@ -16,6 +16,28 @@ public class BlockStore {
     }
 
     /**
+     *  Returns the index key based on the ResourceLocation and IBlockState store in
+     *  the blockStore
+     *
+     * @param location resource location of the block you wish to find a state from within
+     * @param state the state you are wishing to find within the blockStore
+     * @return the key index of the blocks to allow direct modification. Returns null if not found.
+     */
+    public Integer getKeyFromState(ResourceLocation location, IBlockState state) {
+        if( !this.blocks.containsKey(location) )
+            return null;
+
+        for (BlockData data:
+                this.blocks.get(location)) {
+
+            if( data.getState() == state )
+                return this.blocks.get(location).indexOf(data);
+        }
+
+        return null;
+    }
+
+    /**
      * Simply adds a block to the existing map by either pushing upon an existing
      * key or creating a new key and initialising a new {@link ArrayList}
      *
