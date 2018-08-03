@@ -154,7 +154,12 @@ public class GuiList extends GuiContainer
 					if( ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK ) {
 						IBlockState state = mc.world.getBlockState(ray.getBlockPos());
 
-						XrayController.blockStore.blocks.put(state.getBlock().getRegistryName(), new BlockData(state.getBlock().getDefaultState(), new int[] {25, 25, 25}, true));
+//						XrayController.blockStore.blocks.put(state.getBlock().getRegistryName(), new BlockData(state.getBlock().getDefaultState(), new int[] {25, 25, 25}, true));
+
+                        if( XrayController.blockStore.blockRef.containsKey( state.getBlock().getRegistryName() ) )
+                            XrayController.blockStore.blockRef.get( state.getBlock().getRegistryName() ).add( new BlockData(state, new int[] {0, 0, 0}, true) );
+                        else
+                            XrayController.blockStore.blockRef.put(state.getBlock().getRegistryName(), new ArrayList<BlockData>() {{ add(new BlockData(state, new int[] {0, 0, 0}, true)); }});
 
 						Block lookingAt = mc.world.getBlockState(ray.getBlockPos()).getBlock();
 
