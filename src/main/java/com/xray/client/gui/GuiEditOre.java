@@ -62,7 +62,7 @@ public class GuiEditOre extends GuiContainer
         {
             case BUTTON_SAVE:
                 int[] rgb = {(int)(redSlider.sliderValue * 255), (int)(greenSlider.sliderValue * 255), (int)(blueSlider.sliderValue * 255)};
-		oreInfo.setColor( rgb );
+		        oreInfo.setColor( rgb );
                 XrayController.searchList.updateOre( oreInfo );
 
                 mc.player.closeScreen();
@@ -81,10 +81,11 @@ public class GuiEditOre extends GuiContainer
                 mc.displayGuiScreen( new GuiList() );
                 break;
 
+            // TODO: make this do something
             case BUTTON_OREDICT:
-		//XRayController.searchList.toggleOreDictionary( oreInfo );
-		oreInfo.toggleOredict();
-		button.displayString = I18n.format("xray.input.toggle_oredict") + ": " + (oreInfo.useOredict() ? "On" : "Off");
+		        //XRayController.searchList.toggleOreDictionary( oreInfo );
+                oreInfo.toggleOredict();
+                button.displayString = I18n.format("xray.input.toggle_oredict") + ": " + (oreInfo.useOredict() ? "On" : "Off");
                 break;
 
             default:
