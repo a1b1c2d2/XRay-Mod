@@ -9,16 +9,13 @@ import net.minecraftforge.fml.client.GuiScrollingList;
 
 import java.util.List;
 
-/**
- * Created by MiKeY on 07/07/17.
- */
-public class GuiBlocksList extends GuiScrollingList {
+public class GuiBlocksScrollable extends GuiScrollingList {
 
     private static final int HEIGHT = 35;
     private final GuiBlocks parent;
     private List<ItemStack> blockList;
 
-    GuiBlocksList(GuiBlocks parent, List<ItemStack> blockList) {
+    GuiBlocksScrollable(GuiBlocks parent, List<ItemStack> blockList) {
         super( parent.getMinecraftInstance(), 202, 210, parent.height / 2 - 105, parent.height / 2 + 80, parent.width / 2 - 100, HEIGHT, parent.width, parent.height);
 
         this.parent = parent;

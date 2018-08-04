@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class GuiBlocks extends GuiContainer {
     private RenderItem render;
-    private GuiBlocksList blockList;
+    private GuiBlocksScrollable blockList;
     private List<ItemStack> blocks;
     private GuiTextField search;
     private String lastSearched = "";
@@ -47,7 +47,7 @@ public class GuiBlocks extends GuiContainer {
     @Override
     public void initGui() {
         this.render = this.itemRender;
-        this.blockList = new GuiBlocksList( this, this.blocks );
+        this.blockList = new GuiBlocksScrollable( this, this.blocks );
 
         search = new GuiTextField(150, getFontRender(), width / 2 - 100, height / 2 + 85, 140, 18);
         search.setFocused(true);
