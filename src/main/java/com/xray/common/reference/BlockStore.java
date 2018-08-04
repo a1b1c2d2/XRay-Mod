@@ -45,9 +45,13 @@ public class BlockStore {
      * @param data additional data for each block
      */
     public void addBlock(ResourceLocation location, BlockData data) {
-        if( !this.blocks.containsKey( location ) )
-            this.blocks.put(location, new ArrayList<BlockData>() {{ add(data); }} );
+        if( !this.blocks.containsKey( location ) ) {
+            this.blocks.put(location, new ArrayList<BlockData>() {{
+                add(data);
+            }});
 
+            return;
+        }
         // If key does not exist add
         this.blocks.get(location).add(data);
     }
