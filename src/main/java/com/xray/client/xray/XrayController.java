@@ -5,7 +5,6 @@ import com.xray.client.render.XrayRenderer;
 import com.xray.common.XRay;
 import com.xray.common.config.ConfigHandler;
 import com.xray.common.reference.BlockStore;
-import com.xray.common.reference.SearchList;
 import com.xray.common.utils.WorldRegion;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -19,14 +18,6 @@ public class XrayController
 
 	// Data
 	private static int currentDist = 0; // Index for the distNumers array. Default search distance.
-
-	/**
-	 * Currently using the old way of storing block information
-	 *
-	 * @deprecated use {@link #blockStore} instead.
-	 */
-	@Deprecated
-	public static final SearchList searchList = new SearchList();
 
 	public static final BlockStore blockStore = new BlockStore();
 

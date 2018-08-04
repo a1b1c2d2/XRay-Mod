@@ -1,16 +1,11 @@
 package com.xray.common;
 
-import com.xray.client.xray.XrayController;
 import com.xray.common.proxy.CommonProxy;
-import com.xray.common.reference.BlockData;
-import com.xray.common.reference.BlockId;
 import com.xray.common.reference.OreInfo;
 import com.xray.common.reference.Reference;
-import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
@@ -20,21 +15,16 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
+import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import net.minecraft.client.Minecraft;
-import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid= Reference.MOD_ID, name= Reference.MOD_NAME, version=Reference.MOD_VERSION /*guiFactory = Reference.GUI_FACTORY*/)
 public class XRay
 {
-	public static Set<BlockId> lst = new HashSet();
-
 	@Deprecated
 	public static ArrayList<OreInfo> blockList = new ArrayList<>();
 

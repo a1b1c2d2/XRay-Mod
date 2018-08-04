@@ -10,6 +10,7 @@ import net.minecraftforge.oredict.OreDictionary;
 /**
  * Identifies a block using Minecraft id and metadata
  */
+
 public class BlockId
 {
 	public int id;
