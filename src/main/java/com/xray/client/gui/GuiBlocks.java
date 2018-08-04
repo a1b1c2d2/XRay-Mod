@@ -7,9 +7,11 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.resources.I18n;
+import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by MiKeY on 07/07/17.
@@ -17,7 +19,7 @@ import java.util.ArrayList;
 public class GuiBlocks extends GuiContainer {
     private RenderItem render;
     private GuiBlocksList blockList;
-    private ArrayList<OreInfo> blocks = new ArrayList<>();
+    private List<ItemStack> blocks;
     private GuiTextField search;
     private String lastSearched = "";
     private int selected = -1;
@@ -26,7 +28,7 @@ public class GuiBlocks extends GuiContainer {
 
     GuiBlocks() {
         super(false);
-        setBlocks( XRay.blockList );
+        this.blocks = XRay.guiBlockList;
     }
 
     boolean blockSelected(int index) {
@@ -40,7 +42,7 @@ public class GuiBlocks extends GuiContainer {
 
         this.selected = index;
         mc.player.closeScreen();
-        mc.displayGuiScreen( new GuiAdd( blocks.get( this.selected ) ) );
+//        mc.displayGuiScreen( new GuiAdd( blocks.get( this.selected ) ) );
     }
 
     @Override
@@ -88,10 +90,10 @@ public class GuiBlocks extends GuiContainer {
 
     private void reloadBlocks() {
         blocks = new ArrayList<>();
-        ArrayList<OreInfo> tmpBlocks = new ArrayList<>();
-        for( OreInfo block : XRay.blockList ) {
-            if( block.getName().toLowerCase().contains( search.getText().toLowerCase() )
-		    || block.getDisplayName().toLowerCase().contains( search.getText().toLowerCase() ) )
+        List<ItemStack> tmpBlocks = new ArrayList<>();
+        for( ItemStack block : XRay.guiBlockList ) {
+            if( block.getDisplayName().toLowerCase().contains( search.getText().toLowerCase() ) )
+//		    || block.getDisplayName().toLowerCase().contains( search.getText().toLowerCase() ) )
                 tmpBlocks.add(block);
         }
         blocks = tmpBlocks;
@@ -113,10 +115,6 @@ public class GuiBlocks extends GuiContainer {
         super.mouseClicked( x, y, button );
         search.mouseClicked(x, y, button );
         this.blockList.handleMouseInput(x, y);
-    }
-
-    private void setBlocks(ArrayList<OreInfo> blocks) {
-        this.blocks = blocks;
     }
 
     Minecraft getMinecraftInstance() {

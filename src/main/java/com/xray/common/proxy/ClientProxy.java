@@ -11,6 +11,8 @@ import com.xray.common.reference.OreInfo;
 import net.minecraft.block.Block;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.common.MinecraftForge;
@@ -60,18 +62,10 @@ public class ClientProxy extends CommonProxy
 				continue; // avoids troubles
 
 			for( ItemStack subBlock : subBlocks ) {
-				String name = "Mod Author not defined!";
-				if( subBlock.isEmpty() && block.getRegistryName() != null )
-					name = block.getRegistryName().toString();
+				if( subBlock.getItem() == Items.AIR )
+				    continue;
 
-				if( !subBlock.isEmpty() && subBlock.getItem().getRegistryName() != null )
-					name = subBlock.getItem().getRegistryName().toString();
-
-				int meta	= subBlock.isEmpty() ? 0 : subBlock.getItemDamage();
-
-				// TODO: Refactor this
-				if ( Block.getBlockFromName(name) != null ) // some blocks like minecraft:banner return null and break everything
-					XRay.blockList.add( new OreInfo( name, meta ) );
+				XRay.guiBlockList.add( subBlock.isEmpty() ? new ItemStack(block) : subBlock );
 			}
 		}
 	}

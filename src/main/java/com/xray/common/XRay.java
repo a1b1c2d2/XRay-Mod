@@ -10,6 +10,8 @@ import net.minecraft.block.Block;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -22,6 +24,7 @@ import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
@@ -32,7 +35,11 @@ public class XRay
 {
 	public static Set<BlockId> lst = new HashSet();
 
+	@Deprecated
 	public static ArrayList<OreInfo> blockList = new ArrayList<>();
+
+	public static List<ItemStack> guiBlockList = new ArrayList<>();
+
 	private static Minecraft mc = Minecraft.getMinecraft();
 
 	// Config settings
