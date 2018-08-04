@@ -39,74 +39,74 @@ public class ClientTick implements Runnable
 	 * Use XrayController.requestBlockFinder() to trigger a scan.
 	 */
 	private void blockFinder() {
-		Map<BlockId, int[]> ores = XrayController.searchList.getDrawableBlocks();
-		if ( ores.isEmpty() )
-			return; // no need to scan the region if there's nothing to find
-
-		final World world = mc.world;
-		final List<BlockInfo> temp = new ArrayList<>();
-		ResourceLocation key; // Search key for the map
-		int lowBoundX, highBoundX, lowBoundY, highBoundY, lowBoundZ, highBoundZ;
-
-		// Loop on chunks (x, z)
-		for ( int chunkX = box.minChunkX; chunkX <= box.maxChunkX; chunkX++ )
-		{
-			// Pre-compute the extend bounds on X
-			int x = chunkX << 4; // lowest x coord of the chunk in block/world coordinates
-			lowBoundX = (x < box.minX) ? box.minX - x : 0; // lower bound for x within the extend
-			highBoundX = (x + 15 > box.maxX) ? box.maxX - x : 15;// and higher bound. Basically, we clamp it to fit the radius.
-
-			for ( int chunkZ = box.minChunkZ; chunkZ <= box.maxChunkZ; chunkZ++ )
-			{
-				// Time to get the chunk (16x256x16) and split it into 16 vertical extends (16x16x16)
-				Chunk chunk = world.getChunkFromChunkCoords( chunkX, chunkZ );
-				if ( chunk == null || !chunk.isLoaded() ) {
-					continue; // We won't find anything interesting in unloaded chunks
-				}
-				ExtendedBlockStorage[] extendsList = chunk.getBlockStorageArray();
-
-				// Pre-compute the extend bounds on Z
-				int z = chunkZ << 4;
-				lowBoundZ = (z < box.minZ) ? box.minZ - z : 0;
-				highBoundZ = (z + 15 > box.maxZ) ? box.maxZ - z : 15;
-
-				// Loop on the extends around the player's layer (6 down, 2 up)
-				for ( int curExtend = box.minChunkY; curExtend <= box.maxChunkY; curExtend++ )
-				{
-					ExtendedBlockStorage ebs = extendsList[curExtend];
-					if (ebs == null) // happens quite often!
-						continue;
-
-					// Pre-compute the extend bounds on Y
-					int y = curExtend << 4;
-					lowBoundY = (y < box.minY) ? box.minY - y : 0;
-					highBoundY = (y + 15 > box.maxY) ? box.maxY - y : 15;
-
-					// Now that we have an extend, let's check all its blocks
-					for ( int i = lowBoundX; i <= highBoundX; i++ ) {
-						for ( int j = lowBoundY; j <= highBoundY; j++ ) {
-							for ( int k = lowBoundZ; k <= highBoundZ; k++ ) {
-								if( ebs.get(i, j, k).getBlock() == Blocks.AIR || ebs.get(i, j, k).getBlock() == Blocks.STONE)
-									continue;
-
-								key = ebs.get(i, j, k).getBlock().getRegistryName();
-//								if ( XrayController.blockStore.blocks.containsKey(key) ) // The reason for using Set/Map
-//								{
-//								    if( !XrayController.blockStore.blocks.get(key).isDefault() && XrayController.blockStore.blocks.get(key).getState() != ebs.get(i,j,k) )
-//								        continue;
+//		Map<BlockId, int[]> ores = XrayController.searchList.getDrawableBlocks();
+//		if ( ores.isEmpty() )
+//			return; // no need to scan the region if there's nothing to find
 //
-//                                    temp.add( new BlockInfo(x + i, y + j, z + k, new int[]{0, 0, 0}) ); // Add this block to the temp list using world coordinates
-//								}
-							}
-						}
-					}
-				}
-			}
-		}
-		final BlockPos playerPos = mc.player.getPosition();
-		temp.sort((t, t1) -> Double.compare(t1.distanceSq(playerPos), t.distanceSq(playerPos)));
-		XrayRenderer.ores.clear();
-		XrayRenderer.ores.addAll( temp ); // Add all our found blocks to the XrayRenderer.ores list. To be use by XrayRenderer when drawing.
+//		final World world = mc.world;
+//		final List<BlockInfo> temp = new ArrayList<>();
+//		ResourceLocation key; // Search key for the map
+//		int lowBoundX, highBoundX, lowBoundY, highBoundY, lowBoundZ, highBoundZ;
+//
+//		// Loop on chunks (x, z)
+//		for ( int chunkX = box.minChunkX; chunkX <= box.maxChunkX; chunkX++ )
+//		{
+//			// Pre-compute the extend bounds on X
+//			int x = chunkX << 4; // lowest x coord of the chunk in block/world coordinates
+//			lowBoundX = (x < box.minX) ? box.minX - x : 0; // lower bound for x within the extend
+//			highBoundX = (x + 15 > box.maxX) ? box.maxX - x : 15;// and higher bound. Basically, we clamp it to fit the radius.
+//
+//			for ( int chunkZ = box.minChunkZ; chunkZ <= box.maxChunkZ; chunkZ++ )
+//			{
+//				// Time to get the chunk (16x256x16) and split it into 16 vertical extends (16x16x16)
+//				Chunk chunk = world.getChunkFromChunkCoords( chunkX, chunkZ );
+//				if ( chunk == null || !chunk.isLoaded() ) {
+//					continue; // We won't find anything interesting in unloaded chunks
+//				}
+//				ExtendedBlockStorage[] extendsList = chunk.getBlockStorageArray();
+//
+//				// Pre-compute the extend bounds on Z
+//				int z = chunkZ << 4;
+//				lowBoundZ = (z < box.minZ) ? box.minZ - z : 0;
+//				highBoundZ = (z + 15 > box.maxZ) ? box.maxZ - z : 15;
+//
+//				// Loop on the extends around the player's layer (6 down, 2 up)
+//				for ( int curExtend = box.minChunkY; curExtend <= box.maxChunkY; curExtend++ )
+//				{
+//					ExtendedBlockStorage ebs = extendsList[curExtend];
+//					if (ebs == null) // happens quite often!
+//						continue;
+//
+//					// Pre-compute the extend bounds on Y
+//					int y = curExtend << 4;
+//					lowBoundY = (y < box.minY) ? box.minY - y : 0;
+//					highBoundY = (y + 15 > box.maxY) ? box.maxY - y : 15;
+//
+//					// Now that we have an extend, let's check all its blocks
+//					for ( int i = lowBoundX; i <= highBoundX; i++ ) {
+//						for ( int j = lowBoundY; j <= highBoundY; j++ ) {
+//							for ( int k = lowBoundZ; k <= highBoundZ; k++ ) {
+//								if( ebs.get(i, j, k).getBlock() == Blocks.AIR || ebs.get(i, j, k).getBlock() == Blocks.STONE)
+//									continue;
+//
+//								key = ebs.get(i, j, k).getBlock().getRegistryName();
+////								if ( XrayController.blockStore.blocks.containsKey(key) ) // The reason for using Set/Map
+////								{
+////								    if( !XrayController.blockStore.blocks.get(key).isDefault() && XrayController.blockStore.blocks.get(key).getState() != ebs.get(i,j,k) )
+////								        continue;
+////
+////                                    temp.add( new BlockInfo(x + i, y + j, z + k, new int[]{0, 0, 0}) ); // Add this block to the temp list using world coordinates
+////								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//		}
+//		final BlockPos playerPos = mc.player.getPosition();
+//		temp.sort((t, t1) -> Double.compare(t1.distanceSq(playerPos), t.distanceSq(playerPos)));
+//		XrayRenderer.ores.clear();
+//		XrayRenderer.ores.addAll( temp ); // Add all our found blocks to the XrayRenderer.ores list. To be use by XrayRenderer when drawing.
 	}
 
 	/**
@@ -118,16 +118,16 @@ public class ClientTick implements Runnable
 	 */
 	public static void checkBlock( BlockPos pos, IBlockState state, boolean add )
 	{
-		if ( !XrayController.drawOres() ) return; // just pass
-
-		// Let's see if the block to check is an ore we monitor
-		int[] color = XrayController.searchList.getDrawableBlocks().get( BlockId.fromBlockState(state) );
-		if ( color != null ) // it's a block we are monitoring
-		{
-			if ( add )	// the block was added to the world, let's add it to the drawing buffer
-				XrayRenderer.ores.add( new BlockInfo(pos, color) );
-			else		// it was removed from the world, let's remove it from the buffer as well
-				XrayRenderer.ores.remove( new BlockInfo(pos, null) );
-		}
+//		if ( !XrayController.drawOres() ) return; // just pass
+//
+//		// Let's see if the block to check is an ore we monitor
+//		int[] color = XrayController.searchList.getDrawableBlocks().get( BlockId.fromBlockState(state) );
+//		if ( color != null ) // it's a block we are monitoring
+//		{
+//			if ( add )	// the block was added to the world, let's add it to the drawing buffer
+//				XrayRenderer.ores.add( new BlockInfo(pos, color) );
+//			else		// it was removed from the world, let's remove it from the buffer as well
+//				XrayRenderer.ores.remove( new BlockInfo(pos, null) );
+//		}
 	}
 }

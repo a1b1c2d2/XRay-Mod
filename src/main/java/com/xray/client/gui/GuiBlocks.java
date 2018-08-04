@@ -1,7 +1,6 @@
 package com.xray.client.gui;
 
 import com.xray.common.XRay;
-import com.xray.common.reference.OreInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;

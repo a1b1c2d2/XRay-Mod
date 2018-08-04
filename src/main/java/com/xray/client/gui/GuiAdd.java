@@ -1,8 +1,9 @@
 package com.xray.client.gui;
 
 import com.xray.client.xray.XrayController;
-import com.xray.common.reference.OreInfo;
+import com.xray.common.reference.BlockData;
 import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -11,7 +12,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -24,13 +25,20 @@ public class GuiAdd extends GuiContainer {
 	private GuiSlider redSlider;
 	private GuiSlider greenSlider;
 	private GuiSlider blueSlider;
-	private OreInfo selectBlock;
+	private ItemStack selectBlock;
+	private IBlockState state = null;
 	private boolean oreNameCleared  = false;
 
-	GuiAdd(OreInfo selectedBlock) {
+	GuiAdd(ItemStack selectedBlock) {
 		super(false);
 		this.selectBlock = selectedBlock;
 	}
+
+	GuiAdd(ItemStack selectBlock, IBlockState state) {
+	    super(false);
+	    this.selectBlock = selectBlock;
+	    this.state = state;
+    }
 
 	@Override
 	public void initGui()
@@ -59,9 +67,18 @@ public class GuiAdd extends GuiContainer {
 			case BUTTON_ADD:
 				int[] color = new int[] {(int)(redSlider.sliderValue * 255), (int)(greenSlider.sliderValue * 255), (int)(blueSlider.sliderValue * 255)};
 				mc.player.closeScreen();
-				if ( XrayController.searchList.addOre( new OreInfo( selectBlock.getName(), selectBlock.getMeta(), color, true, false ) ) ) {
-					mc.displayGuiScreen( new GuiList() );
-				}
+
+				IBlockState blockState = this.state != null ? this.state : Block.getBlockFromItem( this.selectBlock.getItem() ).getDefaultState();
+
+				XrayController.blockStore.addBlock(
+						this.selectBlock.getItem().getRegistryName(),
+						new BlockData( blockState, color, true)
+				);
+
+				mc.displayGuiScreen( new GuiList() );
+//				if ( XrayController.searchList.addOre( new OreInfo( selectBlock.getName(), selectBlock.getMeta(), color, true, false ) ) ) {
+//					mc.displayGuiScreen( new GuiList() );
+//				}
 
 				break;
 
@@ -114,7 +131,7 @@ public class GuiAdd extends GuiContainer {
 		renderPreview(width / 2 - 100, height / 2 - 40, 202, 45, redSlider.sliderValue, greenSlider.sliderValue, blueSlider.sliderValue);
 
 		RenderHelper.enableGUIStandardItemLighting();
-		this.itemRender.renderItemAndEffectIntoGUI( selectBlock.getItemStack(), width / 2 + 85, height / 2 - 105 );
+		this.itemRender.renderItemAndEffectIntoGUI( selectBlock, width / 2 + 85, height / 2 - 105 );
 		RenderHelper.disableStandardItemLighting();
 	}
 

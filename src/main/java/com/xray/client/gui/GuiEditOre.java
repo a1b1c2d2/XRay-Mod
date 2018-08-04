@@ -63,14 +63,14 @@ public class GuiEditOre extends GuiContainer
             case BUTTON_SAVE:
                 int[] rgb = {(int)(redSlider.sliderValue * 255), (int)(greenSlider.sliderValue * 255), (int)(blueSlider.sliderValue * 255)};
 		        oreInfo.setColor( rgb );
-                XrayController.searchList.updateOre( oreInfo );
+//                XrayController.searchList.updateOre( oreInfo );
 
                 mc.player.closeScreen();
                 mc.displayGuiScreen( new GuiList() );
                 break;
 
             case BUTTON_DELETE:
-                XrayController.searchList.removeOre( oreInfo );
+//                XrayController.searchList.removeOre( oreInfo );
 
                 mc.player.closeScreen();
                 mc.displayGuiScreen( new GuiList() );

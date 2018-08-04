@@ -23,12 +23,15 @@ import net.minecraft.util.text.TextComponentString;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class GuiList extends GuiContainer
 {
 	private final List<HelperGuiList> listHelper = new ArrayList<>();
 	private final List<HelperGuiList> renderList = new ArrayList<>();
 	private int pageCurrent, pageMax = 0;
+
+	private GuiListScrollable blockList;
 
 	private GuiButton distButtons;
 	private static final int BUTTON_RADIUS = 0;
@@ -48,25 +51,27 @@ public class GuiList extends GuiContainer
 	@Override
 	public void initGui()
     {
+    	this.blockList = new GuiListScrollable( this );
+
 		this.buttonList.clear();
 		this.listHelper.clear();
 		this.renderList.clear();
 		int x = width / 2 - 140, y = height / 2 - 106, count = 0, page = 0;
 
-		for( OreInfo ore : XrayController.searchList.getOres() ) {
-			if( count % 9 == 0 && count != 0 )
-			{
-				page++;
-				if( page > pageMax )
-					pageMax++;
-
-				x = width / 2 - 140;
-				y = height / 2 - 106;
-			}
-			listHelper.add( new HelperGuiList( 10+count, page, x, y, ore) );
-			y += 21.8;
-			count ++;
-		}
+//		for( Map.Entry<ResourceLocation, List<BlockData>> ore : XrayController.blockStore.getBlocks().entrySet() ) {
+//			if( count % 9 == 0 && count != 0 )
+//			{
+//				page++;
+//				if( page > pageMax )
+//					pageMax++;
+//
+//				x = width / 2 - 140;
+//				y = height / 2 - 106;
+//			}
+//			listHelper.add( new HelperGuiList( 10+count, page, x, y, ore) );
+//			y += 21.8;
+//			count ++;
+//		}
 
         // only draws the current page
 		for (HelperGuiList item : listHelper ) {
@@ -137,14 +142,14 @@ public class GuiList extends GuiContainer
 			case BUTTON_ADD_HAND:
 				mc.player.closeScreen();
 				ItemStack handItem = mc.player.getHeldItem(EnumHand.MAIN_HAND);
-				OreInfo handBlock = null;
-				// Check if the hand item is a block or not
-				if(!(handItem.getItem() instanceof ItemBlock)) {
-					mc.player.sendMessage( new TextComponentString( "[XRay] "+I18n.format("xray.message.invalid_hand", handItem.getDisplayName()) ));
-					return;
-				}
-				handBlock = new OreInfo( handItem );
-				mc.displayGuiScreen( new GuiAdd(handBlock) );
+//				OreInfo handBlock = null;
+//				// Check if the hand item is a block or not
+//				if(!(handItem.getItem() instanceof ItemBlock)) {
+//					mc.player.sendMessage( new TextComponentString( "[XRay] "+I18n.format("xray.message.invalid_hand", handItem.getDisplayName()) ));
+//					return;
+//				}
+//				handBlock = new OreInfo( handItem );
+//				mc.displayGuiScreen( new GuiAdd(handBlock) );
 				break;
 
 			case BUTTON_ADD_LOOK:
@@ -162,17 +167,16 @@ public class GuiList extends GuiContainer
 //                            XrayController.blockStore.blockRef.put(state.getBlock().getRegistryName(), new ArrayList<BlockData>() {{ add(new BlockData(state, new int[] {0, 0, 0}, true)); }});
 
 						Block lookingAt = mc.world.getBlockState(ray.getBlockPos()).getBlock();
-
+//
 						ItemStack lookingStack = lookingAt.getPickBlock(state, ray, mc.world, ray.getBlockPos(), mc.player);
-						OreInfo seeBlock = null;
 
 						// Double super check that we've got ourselves a block
 						if(!(lookingStack.getItem() instanceof ItemBlock)) {
 							mc.player.sendMessage( new TextComponentString( "[XRay] "+I18n.format("xray.message.invalid_hand", lookingStack.getDisplayName()) ));
 							return;
 						}
-						seeBlock = new OreInfo( lookingStack );
-						mc.displayGuiScreen( new GuiAdd(seeBlock) );
+
+						mc.displayGuiScreen( new GuiAdd(lookingStack, state) );
 					}
 					else
 						mc.player.sendMessage( new TextComponentString( "[XRay] "+I18n.format("xray.message.nothing_infront") ));
@@ -225,6 +229,8 @@ public class GuiList extends GuiContainer
 	public void drawScreen( int x, int y, float f ) {
 
 		super.drawScreen(x, y, f);
+
+		this.blockList.drawScreen( x,  y,  f );
 
 		RenderHelper.enableGUIStandardItemLighting();
 		for ( HelperGuiList item : this.renderList ) {

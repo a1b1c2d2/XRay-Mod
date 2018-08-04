@@ -47,10 +47,10 @@ public class ConfigHandler
 		XRay.config.removeCategory(oresCat); // Cannot rely on ConfigCategory.clear()
 		oresCat = XRay.config.getCategory( CATEGORY_PREFIX_ORES );
 
-		for ( OreInfo ore : XrayController.searchList.getOres() )
-		{
-			ore.addToConfig(oresCat);
-		}
+//		for ( OreInfo ore : XrayController.searchList.getOres() )
+//		{
+//			ore.addToConfig(oresCat);
+//		}
 	}
 
 	public static void setup()
@@ -90,7 +90,7 @@ public class ConfigHandler
 			}
 		}
 
-		XrayController.searchList.addOres( oresToAdd );
+//		XrayController.searchList.addOres( oresToAdd );
 		syncConfig();
 		XRay.config.save();
 	}
