@@ -1,6 +1,5 @@
 package com.xray.client.gui;
 
-import com.xray.common.reference.OreInfo;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.Tessellator;
