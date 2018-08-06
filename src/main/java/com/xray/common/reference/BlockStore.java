@@ -4,15 +4,21 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class BlockStore {
 
     private HashMap<String, Integer> drawableBlocks = new HashMap<>();
     private HashMap<String, BlockData> storedBlocks = new HashMap<>();
+
+    public HashMap<String, Integer> getDrawableBlocks() {
+        return this.drawableBlocks;
+    }
+
+    // NOTE: this function shouldn't be used in most instants other than to display the blocks
+    public HashMap<String, BlockData> getStoredBlocks() {
+        return this.storedBlocks;
+    }
 
     public boolean storeBlock( int blockStateId, BlockData data ) {
         for (Map.Entry<String, BlockData> dataStore:
@@ -22,8 +28,9 @@ public class BlockStore {
                 return false;
         }
 
-        this.drawableBlocks.put("UID HERE", blockStateId);
-        this.storedBlocks.put("SAME UID HERE", data);
+        UUID uniqueKey = UUID.randomUUID();
+        this.drawableBlocks.put(uniqueKey.toString(), blockStateId);
+        this.storedBlocks.put(uniqueKey.toString(), data);
         return true;
     }
 
@@ -36,5 +43,17 @@ public class BlockStore {
         }
         return false;
     }
+
+    public boolean removeDrawableBlock( String uid ) {
+        return this.drawableBlocks.remove( uid ) != null;
+    }
+
+    public boolean removeBlock( String uid ) {
+        if( !this.removeDrawableBlock( uid ) )
+            return false;
+
+        return this.storedBlocks.remove( uid ) != null;
+    }
+
 
 }
