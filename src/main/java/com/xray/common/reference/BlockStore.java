@@ -1,5 +1,6 @@
 package com.xray.common.reference;
 
+import com.google.common.collect.HashBiMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 

@@ -19,7 +19,7 @@ public class GuiListScrollable extends GuiScrollingList {
 
     @Override
     protected int getSize() {
-        return XrayController.blockStore.getBlocks().size();
+        return XrayController.blockStore.getStoredBlocks().size();
     }
 
     @Override
@@ -39,13 +39,13 @@ public class GuiListScrollable extends GuiScrollingList {
 
     @Override
     protected void drawSlot(int slotIdx, int entryRight, int slotTop, int slotBuffer, Tessellator tess) {
-        BlockData blockData = XrayController.blockStore.getBlocks().entrySet().toArray()[slotIdx];
-        FontRenderer font = parent.mc.fontRenderer;
-
-//        ResourceLocation name = block.getItem().getRegistryName();
-
-        font.drawString(block.getDisplayName(), this.left + 30 , top +  7, 0xFFFFFF);
-        font.drawString(name == null ? "Unset by mod author" : name.toString(), this.left + 30 , top + 17, 0xD1CFCF);
+//        BlockData blockData = XrayController.blockStore.getBlocks().entrySet().toArray()[slotIdx];
+//        FontRenderer font = parent.mc.fontRenderer;
+//
+////        ResourceLocation name = block.getItem().getRegistryName();
+//
+//        font.drawString(block.getDisplayName(), this.left + 30 , top +  7, 0xFFFFFF);
+//        font.drawString(name == null ? "Unset by mod author" : name.toString(), this.left + 30 , top + 17, 0xD1CFCF);
 
 //        RenderHelper.enableGUIStandardItemLighting();
 //        this.parent.getRender().renderItemAndEffectIntoGUI(block, this.left + 5, top+7);

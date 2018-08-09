@@ -51,21 +51,21 @@ public class GuiOverlay {
         int i = 0, i2 = 0, spaceCount= 0;
 
 
-        for (Map.Entry<ResourceLocation, List<BlockData>> items:
-                XrayController.blockStore.getBlocks().entrySet()) {
-
-            i2 = 0;
-            for (BlockData data:
-                    items.getValue()) {
-                this.mc.fontRenderer.drawStringWithShadow(String.format("%d", Block.getStateId(data.getState())), 15 + (100 * i), 30 + (baseX * i2), Color.white.getRGB());
-                spaceCount += 10;
-                i2++;
-            }
-
-            this.mc.fontRenderer.drawStringWithShadow(items.getKey().getResourcePath(), 15 + (100 * i), 20, Color.white.getRGB());
-            i++;
-
-        }
+//        for (Map.Entry<ResourceLocation, List<BlockData>> items:
+//                XrayController.blockStore.getBlocks().entrySet()) {
+//
+//            i2 = 0;
+//            for (BlockData data:
+//                    items.getValue()) {
+//                this.mc.fontRenderer.drawStringWithShadow(String.format("%d", Block.getStateId(data.getState())), 15 + (100 * i), 30 + (baseX * i2), Color.white.getRGB());
+//                spaceCount += 10;
+//                i2++;
+//            }
+//
+//            this.mc.fontRenderer.drawStringWithShadow(items.getKey().getResourcePath(), 15 + (100 * i), 20, Color.white.getRGB());
+//            i++;
+//
+//        }
 
 //        RayTraceResult ray = mc.player.rayTrace(100, 20);
 //        if( ray != null && ray.typeOfHit == RayTraceResult.Type.BLOCK ) {

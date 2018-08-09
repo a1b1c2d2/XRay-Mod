@@ -15,6 +15,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Objects;
 
 public class GuiAdd extends GuiContainer {
@@ -70,10 +71,19 @@ public class GuiAdd extends GuiContainer {
 
 				IBlockState blockState = this.state != null ? this.state : Block.getBlockFromItem( this.selectBlock.getItem() ).getDefaultState();
 
-				XrayController.blockStore.addBlock(
-						this.selectBlock.getItem().getRegistryName(),
+				System.out.println( blockState );
+
+				System.out.println( XrayController.blockStore.storeBlock(
+						Block.getStateId(blockState),
 						new BlockData( blockState, color, true)
-				);
+				) );
+
+				for (Map.Entry<String, BlockData> thing:
+					 XrayController.blockStore.getStoredBlocks().entrySet()) {
+
+					System.out.println( thing.getValue().getState() );
+					System.out.println( thing.getKey() );
+				}
 
 				mc.displayGuiScreen( new GuiList() );
 //				if ( XrayController.searchList.addOre( new OreInfo( selectBlock.getName(), selectBlock.getMeta(), color, true, false ) ) ) {
