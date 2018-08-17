@@ -48,6 +48,8 @@ public class ClientTick implements Runnable
 		final World world = mc.world;
 		final List<BlockInfo> temp = new ArrayList<>();
 		int key; // Search key for the map
+		int defaultKey;
+
 		int lowBoundX, highBoundX, lowBoundY, highBoundY, lowBoundZ, highBoundZ;
 
 		// Loop on chunks (x, z)
@@ -92,6 +94,7 @@ public class ClientTick implements Runnable
 									continue;
 
 								key = Block.getStateId(ebs.get(i, j, k));
+								defaultKey = Block.getStateId( ebs.get(i, j, k).getBlock().getDefaultState() );
 
 								if( !ores.containsValue( key ) )
 									continue;
@@ -101,7 +104,7 @@ public class ClientTick implements Runnable
 								for (Map.Entry<String, Integer> blocks:
 									ores.entrySet()) {
 
-									if( blocks.getValue().equals( key ) )
+									if( blocks.getValue().equals( key ) || blocks.getValue().equals( defaultKey ) )
 										foundKey = blocks.getKey();
 								}
 
