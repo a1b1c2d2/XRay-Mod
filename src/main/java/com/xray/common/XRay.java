@@ -3,6 +3,7 @@ package com.xray.common;
 import com.xray.common.proxy.CommonProxy;
 import com.xray.common.reference.OreInfo;
 import com.xray.common.reference.Reference;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
@@ -20,6 +21,7 @@ import org.apache.logging.log4j.Logger;
 import org.lwjgl.input.Keyboard;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 @Mod(modid= Reference.MOD_ID, name= Reference.MOD_NAME, version=Reference.MOD_VERSION /*guiFactory = Reference.GUI_FACTORY*/)
@@ -28,7 +30,7 @@ public class XRay
 	@Deprecated
 	public static ArrayList<OreInfo> blockList = new ArrayList<>();
 
-	public static List<ItemStack> guiBlockList = new ArrayList<>();
+	public static List<IBlockState> guiBlockList = new ArrayList<>();
 
 	private static Minecraft mc = Minecraft.getMinecraft();
 

@@ -1,6 +1,7 @@
 package com.xray.client.gui;
 
 import com.xray.common.XRay;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiTextField;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ import java.util.List;
 public class GuiBlocks extends GuiContainer {
     private RenderItem render;
     private GuiBlocksScrollable blockList;
-    private List<ItemStack> blocks;
+    private List<IBlockState> blocks;
     private GuiTextField search;
     private String lastSearched = "";
     private int selected = -1;
@@ -41,7 +43,7 @@ public class GuiBlocks extends GuiContainer {
 
         this.selected = index;
         mc.player.closeScreen();
-        mc.displayGuiScreen( new GuiAdd( blocks.get( this.selected ) ) );
+//        mc.displayGuiScreen( new GuiAdd( blocks.get( this.selected ) ) );
     }
 
     @Override
@@ -89,9 +91,9 @@ public class GuiBlocks extends GuiContainer {
 
     private void reloadBlocks() {
         blocks = new ArrayList<>();
-        List<ItemStack> tmpBlocks = new ArrayList<>();
-        for( ItemStack block : XRay.guiBlockList ) {
-            if( block.getDisplayName().toLowerCase().contains( search.getText().toLowerCase() ) )
+        List<IBlockState> tmpBlocks = new ArrayList<>();
+        for( IBlockState block : XRay.guiBlockList ) {
+            if( block.getBlock().getLocalizedName().toLowerCase().contains( search.getText().toLowerCase() ) )
 //		    || block.getDisplayName().toLowerCase().contains( search.getText().toLowerCase() ) )
                 tmpBlocks.add(block);
         }
