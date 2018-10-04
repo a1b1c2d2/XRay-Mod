@@ -1,7 +1,7 @@
 [
 {
-  "modid": "xray",
-  "name": "XRay",
+  "modid": "IAS",
+  "name": "Ingame-Account-Switcher-Mod-1.12",
   "description": "An advanced XRay mod for Minecraft.",
   "version": "${version}",
   "mcversion": "${mcversion}",
