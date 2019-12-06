@@ -1,7 +1,7 @@
 [
 {
-  "modid": "xray",
-  "name": "XRay",
+  "modid": "mythria-1.0.0-alpha",
+  "name": "mythria-1.0.0-alpha",
   "description": "An advanced XRay mod for Minecraft.",
   "version": "${version}",
   "mcversion": "${mcversion}",
